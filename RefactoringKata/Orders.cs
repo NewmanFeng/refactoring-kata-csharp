@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RefactoringKata
 {
@@ -16,9 +17,17 @@ namespace RefactoringKata
             return _orders.Count;
         }
 
-        public Order GetOrder(int i)
+        public string OrdersFormat()
         {
-            return _orders[i];
+            return string.Join(", ", _orders.Select(order =>
+            {
+                return order.OrdersFormat();
+            }).ToArray());
+        }
+
+        public string ToFormat()
+        {
+            return string.Format("{{\"orders\": [{0}]}}", OrdersFormat());
         }
     }
 }
